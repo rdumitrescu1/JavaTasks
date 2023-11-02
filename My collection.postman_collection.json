@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "e3c14168-91bf-48f5-8f0c-c5b353ba06ff",
+		"name": "My collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30216905"
+	},
+	"item": [
+		{
+			"name": "Get all the boards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.trello.com/1/members/me/boards?key=ea47e302b77fcbdc6bc095d3c632d405&token=ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC&id=651be0cea5cb14826012f023",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"members",
+						"me",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ea47e302b77fcbdc6bc095d3c632d405"
+						},
+						{
+							"key": "token",
+							"value": "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC"
+						},
+						{
+							"key": "id",
+							"value": "651be0cea5cb14826012f023"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting board by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://api.trello.com/1/boards/651be0cea5cb14826012f023?key=ea47e302b77fcbdc6bc095d3c632d405&token=ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"651be0cea5cb14826012f023"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ea47e302b77fcbdc6bc095d3c632d405"
+						},
+						{
+							"key": "token",
+							"value": "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creating a new board",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Razvan's board\",\n    \"desc\": \"This board it's empty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/boards/?key=ea47e302b77fcbdc6bc095d3c632d405&token=ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ea47e302b77fcbdc6bc095d3c632d405"
+						},
+						{
+							"key": "token",
+							"value": "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a list to a board",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tasks done\",\n    \"pos\": \"bottom\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/boards/651bff73f6f81a79c136dcb1/lists?key=ea47e302b77fcbdc6bc095d3c632d405&token=ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"651bff73f6f81a79c136dcb1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ea47e302b77fcbdc6bc095d3c632d405"
+						},
+						{
+							"key": "token",
+							"value": "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updating board",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Testing put\",\n    \"desc\": \"This board it's empty\",\n    \"labelNames/green\": \"Green label name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/boards/651bff73f6f81a79c136dcb1?key=ea47e302b77fcbdc6bc095d3c632d405&token=ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"651bff73f6f81a79c136dcb1"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ea47e302b77fcbdc6bc095d3c632d405"
+						},
+						{
+							"key": "token",
+							"value": "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Removing board",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.trello.com/1/boards/651be0cea5cb14826012f023?key=ea47e302b77fcbdc6bc095d3c632d405&token=ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"651be0cea5cb14826012f023"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "ea47e302b77fcbdc6bc095d3c632d405"
+						},
+						{
+							"key": "token",
+							"value": "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
