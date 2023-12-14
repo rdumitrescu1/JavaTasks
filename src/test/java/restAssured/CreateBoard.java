@@ -7,16 +7,16 @@ import org.testng.annotations.Test;
 import pojoClasses.Board;
 
 
+
 public class CreateBoard extends BaseTest {
 
     @Test
     public void CreateBoardTest() {
 
         Board newBoard = new Board("Board by RestAssured", "This is created by using RestAssured", "651be0cea5cb14826012f007");
-        String body = convertObjectToJson(newBoard);
 
-        Response response = sendPostRequest(body);
-        Board actualResponse = convertJsonToObject(response);
+        Response response = sendPostRequest(newBoard);
+        Board actualResponse = response.as(Board.class);
 
         checkStatusCode(response, 200);
         Assertions.assertThat(actualResponse.getName()).isEqualTo("Board by RestAssured");
