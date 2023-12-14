@@ -1,57 +1,46 @@
 package restAssured;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
-import pojoClasses.Board;
 
 
 public class BaseTest {
 
-    protected final String baseUrl = "https://api.trello.com/1/boards";
-    protected final String key = "ea47e302b77fcbdc6bc095d3c632d405";
-    protected final String token = "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC";
-    protected final String contentType = "application/json";
+    protected final static String BASE_URL = "https://api.trello.com/1/boards";
+    protected final static String KEY = "ea47e302b77fcbdc6bc095d3c632d405";
+    protected final static String TOKEN = "ATTAdac1df17c5d268b1c8eef82325adc4867cd342c5c51f5963d9b9af68fffc89d8454F54BC";
+    protected final static String CONTENT_TYPE = "application/json";
 
-    ObjectMapper objectMapper = new ObjectMapper();
 
-    protected String convertObjectToJson(Object object) {
-        try {
-            return objectMapper.writeValueAsString(object);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    protected RequestSpecification buildRequestSpecifications(String body) {
+    protected RequestSpecification buildRequestSpecifications() {
         RequestSpecification requestSpec = RestAssured.given()
-                .contentType(contentType)
-                .queryParam("key", key)
-                .queryParam("token", token);
-        if (body != null) {
-            requestSpec.body(body);
-        }
-
+                .contentType(CONTENT_TYPE)
+                .queryParam("key", KEY)
+                .queryParam("token", TOKEN);
         return requestSpec;
     }
 
-    protected Response sendPostRequest(String body) {
+    protected <T> RequestSpecification buildRequestSpecifications(T body) {
+        RequestSpecification requestSpec = buildRequestSpecifications();
+        requestSpec.body(body);
+        return requestSpec;
+    }
+
+    protected Response sendPostRequest(Object body) {
         RequestSpecification requestSpecs = buildRequestSpecifications(body);
         return requestSpecs
                 .when()
-                .post(baseUrl)
+                .post(BASE_URL)
                 .then()
                 .extract()
                 .response();
     }
 
-    protected Response sendPutRequest(String boardID, String body) {
-        RequestSpecification requestSpecs = buildRequestSpecifications(body);
-        String postUrl = baseUrl + "/" + boardID;
+    protected <T> Response sendPutRequest(String boardID, T bodyObject) {
+        RequestSpecification requestSpecs = buildRequestSpecifications(bodyObject);
+        String postUrl = BASE_URL + "/" + boardID;
         return requestSpecs
                 .when()
                 .put(postUrl)
@@ -61,8 +50,8 @@ public class BaseTest {
     }
 
     protected Response sendGetRequest(String boardID) {
-        RequestSpecification requestSpecs = buildRequestSpecifications(null);
-        String getUrl = baseUrl + "/" + boardID;
+        RequestSpecification requestSpecs = buildRequestSpecifications();
+        String getUrl = BASE_URL + "/" + boardID;
         return requestSpecs
                 .when()
                 .get(getUrl)
@@ -73,23 +62,14 @@ public class BaseTest {
     }
 
     protected Response sendDeleteRequest(String boardID) {
-        RequestSpecification requestSpecs = buildRequestSpecifications(null);
-        String getUrl = baseUrl + "/" + boardID;
+        RequestSpecification requestSpecs = buildRequestSpecifications();
+        String getUrl = BASE_URL + "/" + boardID;
         return requestSpecs
                 .when()
                 .delete(getUrl)
                 .then()
                 .extract()
                 .response();
-    }
-
-    protected Board convertJsonToObject(Response response) {
-        try {
-            return objectMapper.readValue(response.getBody().asString(), Board.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     protected static void checkStatusCode(Response response, int expectedStatusCode) {
