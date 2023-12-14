@@ -13,10 +13,9 @@ public class UpdateBoard extends BaseTest {
     public void UpdateBoardTest() {
 
         Board newBoard = new Board("Updated Board with put", "This is updated with put", "651be0cea5cb14826012f007");
-        String body = convertObjectToJson(newBoard);
 
-        Response response = sendPutRequest("Dccffdjo", body);
-        Board actualResponse = convertJsonToObject(response);
+        Response response = sendPutRequest("Dccffdjo", newBoard);
+        Board actualResponse = response.as(Board.class);
 
         checkStatusCode(response, 200);
         Assertions.assertThat(actualResponse.getName()).isEqualTo("Updated Board with put");
